@@ -54,15 +54,23 @@ def cleanup_inbox(outlook):
 
 def cleanup_subfolders(outlook):
 
-    subfolder_original = outlook.Folders.Item("sa_test1@outlook.com").Folders['folder1'].Folders['folder2']
+    subfolder_list = ['folder2']
 
-    subfolder_target = outlook.Folders.Item("sa_test2@outlook.com").Folders['folder1'].Folders['folder2']
+    for folder in subfolder_list:
 
-    original_mails = subfolder_original.items
-    for i in reversed(original_mails):
-        print(i.Subject)
-        if i.Subject == 'Fw: SA Rare Bird News Report - 13 June 2022':
-            i.Move(subfolder_target)
+        subfolder_original = outlook.Folders.Item("sa_test1@outlook.com").Folders['folder1'].Folders[folder]
+
+        subfolder_target = outlook.Folders.Item("sa_test2@outlook.com").Folders['folder1'].Folders[folder]
+
+        #subfolder_original = outlook.Folders.Item("sa_test1@outlook.com").Folders['folder1'].Folders['folder2']
+
+        #subfolder_target = outlook.Folders.Item("sa_test2@outlook.com").Folders['folder1'].Folders['folder2']
+
+        original_mails = subfolder_original.items
+        for i in reversed(original_mails):
+            print(i.Subject)
+            if i.Subject == 'Fw: SA Rare Bird News Report - 13 June 2022':
+                i.Move(subfolder_target)
 
 
 if __name__ == '__main__':
